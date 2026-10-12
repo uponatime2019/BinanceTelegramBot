@@ -195,27 +195,23 @@ namespace BinanceTelegramBot.Services
             int maxSymLen = Math.Max(4, found.Max(f => f.DisplaySymbol.Length));
             int maxPriceLen = Math.Max(6, found.Max(f => FormatHelper.FormatPrice(f.Price).Length));
 
-            var sb = new StringBuilder();
-            sb.AppendLine("<b>Binance Spot Prices:</b>");
-            sb.AppendLine("<pre>");
-
+            var lines = new List<string>();
             foreach (var item in found)
             {
                 if (item.Price == 0)
                 {
-                    sb.AppendLine($"{item.DisplaySymbol.PadRight(maxSymLen)}  [Not Found] {item.Icon}");
+                    lines.Add($"{item.DisplaySymbol.PadRight(maxSymLen)}  [Not Found] {item.Icon}");
                 }
                 else
                 {
                     string sym = item.DisplaySymbol.PadRight(maxSymLen);
                     string price = ("$" + FormatHelper.FormatPrice(item.Price)).PadLeft(maxPriceLen + 1);
                     string pct = FormatHelper.FormatPercent(item.Change).PadLeft(8);
-                    sb.AppendLine($"{sym} {price} {pct} {item.Arrow}");
+                    lines.Add($"{sym} {price} {pct} {item.Arrow}");
                 }
             }
 
-            sb.Append("</pre>");
-            return sb.ToString();
+            return $"<pre>{string.Join("\n", lines)}</pre>";
         }
 
         public async Task<string> GetDetailPriceAsync(string rawSymbol)
@@ -241,7 +237,7 @@ namespace BinanceTelegramBot.Services
 
             var sb = new StringBuilder();
             sb.AppendLine($"<b>📊 {tick.Symbol} (Binance Spot)</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
             sb.AppendLine($"Price:        ${FormatHelper.FormatPrice(tick.LastPrice)}");
             sb.AppendLine($"24h Change:   {changeSign}${FormatHelper.FormatPrice(tick.PriceChange)} ({FormatHelper.FormatPercent(tick.PriceChangePercent)}) {icon}");
             sb.AppendLine($"24h High:     ${FormatHelper.FormatPrice(tick.HighPrice)}");
@@ -283,7 +279,7 @@ namespace BinanceTelegramBot.Services
 
             var sb = new StringBuilder();
             sb.AppendLine($"<b>All Binance Spot Pairs for {FormatHelper.EscapeHtml(asset)}:</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
 
             foreach (var coin in matching)
             {
@@ -351,27 +347,23 @@ namespace BinanceTelegramBot.Services
             int maxSymLen = Math.Max(4, found.Max(f => f.DisplaySymbol.Length));
             int maxPriceLen = Math.Max(6, found.Max(f => FormatHelper.FormatPrice(f.Price).Length));
 
-            var sb = new StringBuilder();
-            sb.AppendLine("<b>Binance Futures Prices (USDT-M):</b>");
-            sb.AppendLine("<pre>");
-
+            var lines = new List<string>();
             foreach (var item in found)
             {
                 if (item.Price == 0)
                 {
-                    sb.AppendLine($"{item.DisplaySymbol.PadRight(maxSymLen)}  [Not Found] {item.Icon}");
+                    lines.Add($"{item.DisplaySymbol.PadRight(maxSymLen)}  [Not Found] {item.Icon}");
                 }
                 else
                 {
                     string sym = item.DisplaySymbol.PadRight(maxSymLen);
                     string price = ("$" + FormatHelper.FormatPrice(item.Price)).PadLeft(maxPriceLen + 1);
                     string pct = FormatHelper.FormatPercent(item.Change).PadLeft(8);
-                    sb.AppendLine($"{sym} {price} {pct} {item.Arrow}");
+                    lines.Add($"{sym} {price} {pct} {item.Arrow}");
                 }
             }
 
-            sb.Append("</pre>");
-            return sb.ToString();
+            return $"<pre>{string.Join("\n", lines)}</pre>";
         }
 
         public async Task<string> GetFuturesDetailPriceAsync(string rawSymbol)
@@ -397,7 +389,7 @@ namespace BinanceTelegramBot.Services
 
             var sb = new StringBuilder();
             sb.AppendLine($"<b>⚡ {tick.Symbol} (Binance Futures USDT-M)</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
             sb.AppendLine($"Price:        ${FormatHelper.FormatPrice(tick.LastPrice)}");
             sb.AppendLine($"24h Change:   {changeSign}${FormatHelper.FormatPrice(tick.PriceChange)} ({FormatHelper.FormatPercent(tick.PriceChangePercent)}) {icon}");
             sb.AppendLine($"24h High:     ${FormatHelper.FormatPrice(tick.HighPrice)}");
@@ -475,7 +467,7 @@ namespace BinanceTelegramBot.Services
             int maxSymLen = list.Max(t => t.Symbol[..^4].Length);
             var sb = new StringBuilder();
             sb.AppendLine($"<b>🚀 {FormatHelper.EscapeHtml(title)}</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
 
             int rank = 1;
             foreach (var coin in list)

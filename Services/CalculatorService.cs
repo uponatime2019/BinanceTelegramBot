@@ -54,7 +54,7 @@ namespace BinanceTelegramBot.Services
 
             var sb = new StringBuilder();
             sb.AppendLine($"<b>💰 Buy Calculation for #{asset}:</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
             sb.AppendLine($"Buy Price:     ${FormatHelper.FormatPrice(buyPrice)}");
             sb.AppendLine($"Current Price: ${FormatHelper.FormatPrice(curr)}");
             sb.AppendLine($"Change:        {FormatHelper.FormatPercent(changePct)} {changeIcon}");
@@ -113,7 +113,7 @@ namespace BinanceTelegramBot.Services
             var curr = currentPrice.Value;
             var sb = new StringBuilder();
             sb.AppendLine($"<b>💸 Sell Comparison for #{asset}:</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
             sb.AppendLine($"Sold Price:    ${FormatHelper.FormatPrice(soldPrice)}");
             sb.AppendLine($"Current Price: ${FormatHelper.FormatPrice(curr)}");
 
@@ -181,7 +181,7 @@ namespace BinanceTelegramBot.Services
 
             var sb = new StringBuilder();
             sb.AppendLine($"<b>💼 Value for {FormatHelper.FormatPrice(quantity)} #{asset}:</b>");
-            sb.AppendLine("<pre>");
+            sb.Append("<pre>");
             sb.AppendLine($"Current Value: ${FormatHelper.FormatPrice(totalUsdt)} USDT");
 
             // Compare to other major reference coins

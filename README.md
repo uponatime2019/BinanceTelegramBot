@@ -2,6 +2,10 @@
 
 A fast, lightweight, and stateless Telegram Bot for real-time Binance market tracking and crypto calculations, written in modern C# (.NET 10).
 
+<p align="center">
+  <img src="screenshot.png" alt="Binance Telegram Bot Screenshot" width="600" />
+</p>
+
 ## 🚀 Key Features
 
 - **100% Open Source & Zero Database Dependency**: Entirely stateless with in-memory thread-safe caching. No MySQL, SQLite, Redis, or external databases required.

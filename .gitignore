@@ -17,9 +17,6 @@ x86/
 # OS generated files
 .DS_Store
 Thumbs.db
-*.png
-*.jpg
-*.jpeg
 
 # User Secrets / Tokens
 appsettings.json
